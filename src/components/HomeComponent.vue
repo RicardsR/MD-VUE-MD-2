@@ -1,6 +1,6 @@
 <template>
     <div class="comp-container">
-        <h1>HOME</h1>
+        <h1>{{ title }}</h1>
         <SongListComponent />
     </div>
 </template>
@@ -12,5 +12,10 @@ export default {
     components: {
         SongListComponent,
     },
+    data() {
+    return {
+      title: "Home",
+    };
+  },
 };
 </script>
