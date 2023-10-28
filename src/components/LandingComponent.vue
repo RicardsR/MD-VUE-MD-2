@@ -1,11 +1,9 @@
 <template>
-    <div class="landing">
-        <div class="landing__content">
-            <h1 class="landing__title">Welcome to the <span class="landing__title--highlight">IT Academy</span>!</h1>
-            <p class="landing__text">This is a simple Vue.js application that demonstrates the usage of Vue.js components, props, events, and computed properties.</p>
-            <p class="landing__text">You can log in and log out by clicking the button below.</p>
-            <button class="landing__button" @click="toggleLogin">{{ isLoggedIn ? "Log out" : "Log in" }}</button>
-        </div>
+    <div class="landing-big-text-container">
+        <div>WE</div>
+        <div style="color: #FB0048">LOVE</div>
+        <div>MUSIC</div>
+        <div class="landing-sub-text-container">POWERED BY <p style="color: #67FF64">SPOTIFY API</p></div>
     </div>
 </template>
 

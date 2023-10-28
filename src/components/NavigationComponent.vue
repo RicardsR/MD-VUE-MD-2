@@ -8,7 +8,7 @@
         </router-link>
     </div>
 </template>
-  
+
 <script>
 export default {
     data() {
@@ -16,7 +16,7 @@ export default {
     },
 };
 </script>
-  
+
 <style scoped>
 .active {
     background-color: #8645E8;

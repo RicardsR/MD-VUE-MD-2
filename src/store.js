@@ -1,32 +1,26 @@
 import { createStore } from 'vuex';
 
-// Check if the user was logged in previously
 const userLoggedIn = localStorage.getItem('userLoggedIn') === 'true';
 
 export const store = createStore({
     state: {
         all_songs: [],
         user: {
-            firstName: 'name',
-            lastName: 'surname',
-            studentCode: 'CODE1234',
+            firstName: 'Ričards',
+            lastName: 'Reinsons',
+            studentCode: 'IT21016',
             loggedAt: [],
-            loggedIn: userLoggedIn, // Set the initial login status from localStorage
+            loggedIn: userLoggedIn,
         },
     },
     mutations: {
         login(state) {
             state.user.loggedIn = true;
             state.user.loggedAt.push(getFormattedTimestamp());
-
-            // Store the login status in localStorage
             localStorage.setItem('userLoggedIn', 'true');
         },
         logout(state) {
             state.user.loggedIn = false;
-            state.user.loggedAt.push(getFormattedTimestamp());
-
-            // Update the login status in localStorage
             localStorage.setItem('userLoggedIn', 'false');
         },
         resetUser(state) {
@@ -35,9 +29,16 @@ export const store = createStore({
             state.user.studentCode = 'CODE1234';
             state.user.loggedAt = [];
             state.user.loggedIn = false;
-
-            // Clear the login status in localStorage
             localStorage.removeItem('userLoggedIn');
+        },
+        updateFirstName(state, name) {
+            state.user.firstName = name;
+        },
+        updateLastName(state, surname) {
+            state.user.lastName = surname;
+        },
+        updateStudentCode(state, code) {
+            state.user.studentCode = code;
         },
     },
     actions: {
@@ -46,6 +47,15 @@ export const store = createStore({
         },
         logout(context) {
             context.commit('logout');
+        },
+        updateName(context, name) {
+            context.commit('updateFirstName', name);
+        },
+        updateSurname(context, surname) {
+            context.commit('updateLastName', surname);
+        },
+        updateCode(context, code) {
+            context.commit('updateStudentCode', code);
         },
     },
 });

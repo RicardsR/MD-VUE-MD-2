@@ -1,28 +1,32 @@
 <template>
-    <div>
-        <h1>ABOUT ME</h1>
-        <div class="about-me">
-            <p>Name:</p><h3> {{ user.name }}</h3>
+    <div class="comp-container">
+        <div class="about-me-header">
+            <h1>ABOUT ME</h1>
+            <div class="about-me-devider"></div>
+            <button class="button" :class="{ 'button-logout': isEditMode }" @click="toggleEditMode">
+                {{ isEditMode ? 'CANCEL' : 'EDIT FORM' }}
+            </button>
         </div>
-        <div class="about-me">
-            <p>Surname:</p><h3> {{ user.surname }}</h3>
-        </div>
-        <div class="about-me">
-            <p>Code:</p><h3> {{ user.code }}</h3>
-        </div>
+        <FormComponent :disabled="!isEditMode" />
     </div>
 </template>
 
 <script>
+import FormComponent from "./FormComponent.vue";
+
 export default {
+    components: {
+        FormComponent,
+    },
     data() {
         return {
-            user: {
-                name: "Ričards",
-                surname: "Reinsons",
-                code: "IT21016",
-            },
+            isEditMode: false,
         };
+    },
+    methods: {
+        toggleEditMode() {
+            this.isEditMode = !this.isEditMode;
+        },
     },
 };
 </script>

@@ -1,14 +1,15 @@
 <template>
-  <div id="app">
-    <HeaderComponent @login="handleLogin" @logout="handleLogout" />
+  <div id="app" :class="{ 'kraken-bg': !isLoggedIn}">
+    <HeaderComponent @login="login" @logout="logout" />
     <div class="container">
-      <div>
-        <NavigationComponent @change-component="changeComponent" :isHomeActive="isHomeActive"
-          :isAboutMeActive="isAboutMeActive" />
+      <div v-if="isLoggedIn">
+        <NavigationComponent @change-component="changeComponent" :isHomeActive="isHomeActive" :isAboutMeActive="isAboutMeActive" />
       </div>
       <div v-if="isLoggedIn">
-        <HomeComponent v-if="currentComponent === 'home'" />
-        <AboutMeComponent v-if="currentComponent === 'aboutMe'" />
+        <router-view />
+      </div>
+      <div v-else>
+        <LandingComponent />
       </div>
     </div>
   </div>
@@ -16,35 +17,26 @@
 
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
+import LandingComponent from "@/components/LandingComponent.vue";
 import NavigationComponent from "@/components/NavigationComponent.vue";
-import HomeComponent from "@/components/HomeComponent.vue";
-import AboutMeComponent from "@/components/AboutMeComponent.vue";
+import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      isLoggedIn: false,
-      currentComponent: "home",
-    };
+  computed: {
+    ...mapState({
+      isLoggedIn: state => state.user.loggedIn
+    }),
+    isHomeActive() {
+      return this.$route.name === "home";
+    },
+    isAboutMeActive() {
+      return this.$route.name === "aboutMe";
+    },
   },
   components: {
     HeaderComponent,
     NavigationComponent,
-    HomeComponent,
-    AboutMeComponent,
-  },
-  methods: {
-    handleLogin() {
-      this.isLoggedIn = true;
-    },
-    handleLogout() {
-      this.isLoggedIn = false;
-    },
-    changeComponent(componentName) {
-      this.currentComponent = componentName;
-      this.isHomeActive = componentName === "home";
-      this.isAboutMeActive = componentName === "aboutMe";
-    },
+    LandingComponent,
   },
 };
 </script>
