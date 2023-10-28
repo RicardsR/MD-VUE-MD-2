@@ -30,42 +30,42 @@
 
 <script>
 import SongFilterComponent from "./SongFilterComponent.vue";
-import all_songs from "../assets/songs-list.json";
+import { mapState } from "vuex";
 
 export default {
     components: {
         SongFilterComponent,
     },
-    data() {
-        return {
-            sortBy: "none",
-            songs: all_songs,
-        };
-    },
     computed: {
+        ...mapState(["all_songs"]),
         sortedSongs() {
             if (this.sortBy === "name") {
                 return this.sortedByName;
             } else if (this.sortBy === "artist") {
                 return this.sortedByArtist;
             } else {
-                return this.songs;
+                return this.all_songs;
             }
         },
         sortedByName() {
-            if (Array.isArray(this.songs)) {
-                return [...this.songs].sort((a, b) => a.song.localeCompare(b.song));
+            if (Array.isArray(this.all_songs)) {
+                return [...this.all_songs].sort((a, b) => a.song.localeCompare(b.song));
             } else {
                 return [];
             }
         },
         sortedByArtist() {
-            if (Array.isArray(this.songs)) {
-                return [...this.songs].sort((a, b) => a.artist.localeCompare(b.artist));
+            if (Array.isArray(this.all_songs)) {
+                return [...this.all_songs].sort((a, b) => a.artist.localeCompare(b.artist));
             } else {
                 return [];
             }
         },
+    },
+    data() {
+        return {
+            sortBy: "none",
+        };
     },
     methods: {
         setSortBy(sortBy) {

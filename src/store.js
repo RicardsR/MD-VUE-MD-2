@@ -1,10 +1,11 @@
 import { createStore } from 'vuex';
+import songsList from "../src/assets/songs-list.json";
 
 const userLoggedIn = localStorage.getItem('userLoggedIn') === 'true';
 
 export const store = createStore({
     state: {
-        all_songs: [],
+        all_songs: songsList,
         user: {
             firstName: 'Ričards',
             lastName: 'Reinsons',
